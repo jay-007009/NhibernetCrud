@@ -12,7 +12,7 @@ namespace NhibernetCrud.Controllers
 {
     public class EmployeeController : Controller
     {
-        // GET: Employee
+       
         public ActionResult Index()
         {
             ViewBag.Message = "Your application description page.";
@@ -21,42 +21,42 @@ namespace NhibernetCrud.Controllers
             using (NHibernate.ISession session = NhibernateSession.OpenSession())  // Open a session to conect to the database
             {
                 employees = session.Query<Employee>().ToList(); //  Querying to get all the employees
+                return View(employees);
             }
 
-            return View(employees);
+
         }
 
         // GET: Employee/Details/5
         public ActionResult Details(int id)
         {
-            Employee employee = new Employee();
             using (NHibernate.ISession session = NhibernateSession.OpenSession())
             {
-                employee = session.Query<Employee>().Where(b => b.EmployeeId == id).FirstOrDefault();
+                var employee = session.Get<Employee>(id);
+                return View(employee);
             }
-
-            return View(employee);
         }
 
-        // GET: Employee/Create
+
+        // POST: Employee/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: Employee/Create/5
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Employee employee)
         {
             try
             {
-                Employee employee = new Employee();     //  Creating a new instance of the Employee
-                employee.FirstName = collection["FirstName"].ToString();
-               employee.LastName = collection["LastName"].ToString();
-                employee.Age = Convert.ToInt32(collection["Age"]);
-                employee.MaritalStatus = (collection["MaritalStatus"]).ToString();
-                employee.Gender = (collection["Gender"]).ToString();
-                employee.Department = collection["Gender"].ToString();
+                // Employee employee = new Employee();     //  Creating a new instance of the Employee
+                // employee.FirstName = collection["FirstName"].ToString();
+                //employee.LastName = collection["LastName"].ToString();
+                // employee.Age = Convert.ToInt32(collection["Age"]);
+                // employee.MaritalStatus = Convert.ToBoolean(collection["MaritalStatus"]);
+                // employee.Gender = (collection["Gender"]).ToString();
+                // employee.Department = (collection["Department"]).ToString();
 
                 // TODO: Add insert logic here
                 using (NHibernate.ISession session = NhibernateSession.OpenSession())
@@ -75,40 +75,75 @@ namespace NhibernetCrud.Controllers
             }
         }
 
-        // GET: Employee/Edit/5
+
+
+
+        // PUT: Employee/Edit
         public ActionResult Edit(int id)
         {
-            Employee employee = new Employee();
+            //Employee employee = new Employee();
+            //using (NHibernate.ISession session = NhibernateSession.OpenSession())
+            //{
+            //    employee = session.Query<Employee>().Where(b => b.EmployeeId == id).FirstOrDefault();
+            //}
+
+            //ViewBag.SubmitAction = "Save";
+            //return View(employee);
+
             using (NHibernate.ISession session = NhibernateSession.OpenSession())
             {
-                employee = session.Query<Employee>().Where(b => b.EmployeeId == id).FirstOrDefault();
+                var employee = session.Get<Employee>(id);
+                return View(employee);
             }
 
-            ViewBag.SubmitAction = "Save";
-            return View(employee);
         }
 
-        // POST: Employee/Edit/5
+        // PUT: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Employee employee /*,FormCollection collection*/)
         {
+            //try
+            //{
+            //    Employee employee = new Employee();     //  Updating a new instance of the Employee
+            //    employee.FirstName = collection["FirstName"].ToString();
+            //    employee.LastName = collection["LastName"].ToString();
+            //    employee.Age = Convert.ToInt32(collection["Age"]);
+            //    employee.MaritalStatus = Convert.ToBoolean (collection["MaritalStatus"]);
+            //    employee.Gender = (collection["Gender"]).ToString();
+            //    employee.Department = (collection["Department"]).ToString();
+
+
+            //    // TODO: Add insert logic here
+            //    using (NHibernate.ISession session = NhibernateSession.OpenSession())
+            //    {
+            //        using (ITransaction transaction = session.BeginTransaction())
+            //        {
+            //            session.SaveOrUpdate(employee);
+            //            transaction.Commit();
+            //        }
+            //    }
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
+
             try
             {
-                Employee employee = new Employee();     //  Updating a new instance of the Employee
-                employee.FirstName = collection["FirstName"].ToString();
-                employee.LastName = collection["LastName"].ToString();
-                employee.Age = Convert.ToInt32(collection["Age"]);
-                employee.MaritalStatus = (collection["MaritalStatus"]).ToString();
-                employee.Gender = (collection["Gender"]).ToString();
-                employee.Department = collection["Gender"].ToString();
-
-
-                // TODO: Add insert logic here
                 using (NHibernate.ISession session = NhibernateSession.OpenSession())
                 {
+                    var employeetoUpdate = session.Get<Employee>(id);
+
+                    employeetoUpdate.FirstName = employee.FirstName;
+                    employeetoUpdate.LastName = employee.LastName;
+                    employeetoUpdate.Age = employee.Age;
+                    employeetoUpdate.MaritalStatus = employee.MaritalStatus;
+                    employeetoUpdate.Gender = employee.Gender;
+                    employeetoUpdate.Department = employee.Department;
                     using (ITransaction transaction = session.BeginTransaction())
                     {
-                        session.SaveOrUpdate(employee);
+                        session.Save(employeetoUpdate);
                         transaction.Commit();
                     }
                 }
@@ -118,44 +153,71 @@ namespace NhibernetCrud.Controllers
             {
                 return View();
             }
+
         }
 
-        // GET: Employee/Delete/5
+      
+
+
+
+
+
+        // DELETE: Employee/Delete/
         public ActionResult Delete(int id)
         {
-            // Delete the employee
-            Employee employee = new Employee();
             using (NHibernate.ISession session = NhibernateSession.OpenSession())
             {
-                employee = session.Query<Employee>().Where(b => b.EmployeeId == id).FirstOrDefault();
+                var employee = session.Get<Employee>(id);
+                return View(employee);
             }
-            ViewBag.SubmitAction = "Confirm delete";
-            return View("Edit", employee);
         }
 
-        // POST: Employee/Delete/5
+        // DELETE: Employee/Delete/5
         [HttpPost]
-        public ActionResult Delete(long id, FormCollection collection)
+        public ActionResult Delete(int id, Employee employee /*,FormCollection collection*/)
         {
+            //try
+            //{
+            //    // TODO: Add delete logic here
+            //    using (NHibernate.ISession session = NhibernateSession.OpenSession())
+            //    {
+            //        Employee employee = session.Get<Employee>(id);
+
+            //        using (ITransaction trans = session.BeginTransaction())
+            //        {
+            //            session.Delete(employee);
+            //            trans.Commit();
+            //        }
+            //    }
+            //    return RedirectToAction("Index");
+            //}
+            //catch (Exception e)
+            //{
+            //    return View();
+            //}
+
             try
             {
-                // TODO: Add delete logic here
                 using (NHibernate.ISession session = NhibernateSession.OpenSession())
                 {
-                    Employee employee = session.Get<Employee>(id);
-
-                    using (ITransaction trans = session.BeginTransaction())
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
-                        session.Delete(employee);
-                        trans.Commit();
+                        var employe = session.Get<Employee>(id);
+                        session.Delete(employe);
+                        transaction.Commit();
                     }
                 }
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
                 return View();
-            }
+            }            
+        }
+
+        public IActionResult Department()
+        {
+            return View();
         }
     }
 }

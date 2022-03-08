@@ -8,7 +8,7 @@
 			NHibernate.Driver.SqlClientDriver
 		</property>
 		<property name="connection.connection_string">
-			Server=JAY-PCL;database=db_NEmployee;Integrated Security=SSPI;
+			Server=.;database=db_EFEmployee;Integrated Security=SSPI;
 		</property>
 		<property name="dialect">
 			NHibernate.Dialect.MsSql2012Dialect

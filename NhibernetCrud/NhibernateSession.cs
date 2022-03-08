@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http;
 using NHibernate;
 using NHibernate.Cfg;
 using System;
@@ -13,9 +14,9 @@ namespace NhibernetCrud
         public static NHibernate.ISession OpenSession()
         {
             var configuration = new Configuration();
-            var configurationPath = HttpContext.Current.Server.MapPath(@"~\Models\hibernate.cfg.xml");
+            var configurationPath = MyServer.MapPath(@"Models\hibernate.cfg.xml");
             configuration.Configure(configurationPath);
-            var employeeConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Mappings\Employee.hbm.xml");
+            var employeeConfigurationFile = MyServer.MapPath(@"Mappings\Employee.hbm.xml");
             configuration.AddFile(employeeConfigurationFile);
             ISessionFactory sessionFactory = configuration.BuildSessionFactory();
             return sessionFactory.OpenSession();

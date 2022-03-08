@@ -29,6 +29,8 @@ namespace NhibernetCrud
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AppDomain.CurrentDomain.SetData("ContentRootPath", env.ContentRootPath);
+            AppDomain.CurrentDomain.SetData("WebRootPath", env.WebRootPath);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -50,7 +52,7 @@ namespace NhibernetCrud
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Employee}/{action=Index}/{id?}");
             });
         }
     }
