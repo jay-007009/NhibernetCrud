@@ -215,9 +215,23 @@ namespace NhibernetCrud.Controllers
             }            
         }
 
-        public IActionResult Department()
+        public IActionResult Department(List<Department> departments)
         {
-            return View();
+            departments = new List<Department>()
+            {
+                new Department()
+                { DepartmentId=1001,DepartmentName="FrontEnd" },
+                 new Department()
+                { DepartmentId=1002,DepartmentName="HR" },
+                  new Department()
+                { DepartmentId=1003,DepartmentName="Senior Manager" },
+                   new Department()
+                { DepartmentId=1004,DepartmentName="Backend" },
+                    new Department()
+                { DepartmentId=1005,DepartmentName="Devops" },
+            };
+
+            return View(departments);
         }
     }
 }

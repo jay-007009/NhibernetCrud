@@ -6,7 +6,7 @@
 <br />
 <h4>Delete Employee</h4>
 
-<h3>Are you sure you want to delete this?</h3>
+<h4>Are you sure you want to delete this?</h4>
 <div>
    
     <hr />
@@ -56,7 +56,10 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete user @Model.FirstName,@Model.LastName')" class="btn btn-danger" /> 
+
+        <a asp-action="Index" style="border-radius: 5px; border: none;color: white; padding: 10px; text-decoration: none;display: inline-block;font-size: 15px;
+  margin: 4px 2px;
+  cursor: pointer;" class="btn btn-primary">Back to List</a>
     </form>
 </div>

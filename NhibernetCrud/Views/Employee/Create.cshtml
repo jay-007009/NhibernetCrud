@@ -51,8 +51,8 @@
 
             <div class="form-group">
                <b> <label asp-for="Department" class="control-label">Department</label> </b> <br />
-                <select asp-for="Department"  >
-                    <option>Please Select Any Option </option>
+                <select asp-for="Department" placeholder="please select Any Department" >
+                    <option > </option>
                     <option>FrontEnd</option>
                     <option>HR</option>
                     <option>Senior Manager</option>
@@ -62,17 +62,21 @@
                 <span asp-validation-for="Department" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" /> &nbsp;
+                <input type="submit" value="Create" class="btn btn-primary" /> &nbsp; &nbsp;
 
                 @*<input type="button" asp-action="Index" value="Back to List" style="border-radius: 12px; border: none;color: red; padding: 20px;
- text-decoration: none;
-  display: inline-block;
-  font-size: 10px;
+        text-decoration: none;
+         display: inline-block;
+         font-size: 10px;
+         margin: 4px 2px;
+         cursor: pointer;" />*@
+                <a asp-action="Index" style="border-radius: 5px; border: none;color: white; padding: 10px; text-decoration: none;display: inline-block;font-size: 15px;
   margin: 4px 2px;
-  cursor: pointer;" />*@
-                <a asp-action="Index" style="border-radius: 12px; border: none;color: red; padding: 20px; text-decoration: none;display: inline-block;font-size: 15px;
-  margin: 4px 2px;
-  cursor: pointer;" >Back to List</a>
+  cursor: pointer;" class="btn btn-primary">Back to List</a>
+
+               
+
+
             </div>
         </form>
     </div>
