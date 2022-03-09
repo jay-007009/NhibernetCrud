@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 <br />
-<h3>Employee List</h3>
+<h3><u>Employee List </u></h3>
 <br />
 <h5>
     <a asp-action="Create" style="border-radius: 5px; border: none;color: white; padding: 10px; text-decoration: none;display: inline-block;font-size: 15px;
@@ -76,7 +76,7 @@
             <td class="text-white">
            
                 <a class="link-white">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId } )  |
 
                     @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
